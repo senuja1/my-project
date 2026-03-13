@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Greeting</title>
+
+<style>
+
+body{
+background:#0f172a;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:sans-serif;
+color:white;
+}
+
+.card{
+background:#1e293b;
+padding:40px;
+border-radius:15px;
+text-align:center;
+width:300px;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:none;
+}
+
+button{
+margin-top:15px;
+padding:10px;
+width:100%;
+background:#2563eb;
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Welcome</h2>
+
+<p>Please enter your name to receive a greeting.</p>
+
+<input id="name" placeholder="Enter your name">
+
+<button onclick="send()">Get Greeting</button>
+
+<h3 id="result"></h3>
+
+</div>
+
+<script>
+
+function send(){
+
+const name = document.getElementById("name").value
+
+fetch("http://localhost:3000/message",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({name})
+})
+.then(res=>res.json())
+.then(data=>{
+document.getElementById("result").innerText = data.message
+})
+
+}
+
+</script>
+
+</body>
+</html>
